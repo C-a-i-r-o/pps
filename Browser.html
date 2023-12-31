@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pps engine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            width: 300px;
+            padding: 5px;
+            font-size: 16px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Simple Search Engine</h1>
+
+<input type="text" id="searchInput" oninput="search()" placeholder="Search...">
+
+<ul id="searchResults"></ul>
+
+<script>
+    const data = [
+        { id: 1, title: "Sample Result 1", content: "This is some content for result 1." },
+        { id: 2, title: "Sample Result 2", content: "Content for result 2 is here." },
+        { id: 3, title: "Another Sample", content: "Additional content for another result." },
+        // Add more data as needed
+    ];
+
+    function search() {
+        const searchInput = document.getElementById('searchInput').value.toLowerCase();
+        const searchResults = document.getElementById('searchResults');
+        searchResults.innerHTML = '';
+
+        const filteredData = data.filter(item =>
+            item.title.toLowerCase().includes(searchInput) ||
+            item.content.toLowerCase().includes(searchInput)
+        );
+
+        if (filteredData.length === 0) {
+            searchResults.innerHTML = '<li>No results found.</li>';
+        } else {
+            filteredData.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>${item.title}</strong><br>${item.content}`;
+                searchResults.appendChild(li);
+            });
+        }
+    }
+</script>
+
+</body>
+</html>
